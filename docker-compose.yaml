@@ -1,0 +1,32 @@
+version: "3.1"
+services:
+  mufg-scrape:
+    container_name: mufg_scrape
+    build:
+     context: ./mufg_scrape
+     dockerfile: Dockerfile
+    volumes:
+      - ./mufg_scrape:/app
+    env_file: ./mufg_scrape/.env.development
+    working_dir: /app
+    ports:
+      - 8080:8080
+    tty: true
+    stdin_open: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+
+  selenium-chrome:
+    container_name: selenium_chrome
+    build:
+      context: ./selenium_chrome
+      dockerfile: Dockerfile
+#    shm_size: 2gb
+    volumes:
+      - /dev/shm:/dev/shm
+    env_file: ./selenium_chrome/.env.development
+    ports:
+      - 4444:4444
+
+#volumes:
+#  db-store:

@@ -1,0 +1,13 @@
+steps:
+  - name: "gcr.io/cloud-builders/docker"
+    entrypoint: "bash"
+    args:
+      - -c
+      - |
+        docker build \
+        -t gcr.io/$PROJECT_ID/selenium_chrome \
+        -f ./selenium_chrome/Dockerfile \
+        ./selenium_chrome
+
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["push", "gcr.io/$PROJECT_ID/selenium_chrome"]
